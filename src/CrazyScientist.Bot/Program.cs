@@ -1,10 +1,24 @@
-﻿namespace CrazyScientist.Bot
+﻿using Microsoft.Extensions.Hosting;
+using System.Threading.Tasks;
+
+namespace CrazyScientist.Bot
 {
-    internal class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            await CreateHostBuilder(args)
+                .Build()
+                .RunAsync();
         }
+
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureServices((hostContext, services) =>
+                {
+                    var startup = new Startup(hostContext.Configuration, hostContext.HostingEnvironment);
+                    startup.ConfigureServices(services);
+                });
     }
 }
