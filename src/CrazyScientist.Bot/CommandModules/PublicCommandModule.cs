@@ -20,7 +20,11 @@ public class PublicCommandModule : InteractionModuleBase<SocketInteractionContex
         await RespondAsync("Pong!");
     }
 
-
+    [SlashCommand("echo", "repeat the input")]
+    public async Task EchoAsync(string input)
+    {
+        await RespondAsync($"**{Context.User.Mention} said:** _{input}_");
+    }
 
     public override Task BeforeExecuteAsync(ICommandInfo command)
     {
